@@ -1,0 +1,246 @@
+:root {
+    --primary-color: #6a5acd; /* Adjusted to a purple shade */
+    --accent-color: #ff69b4; /* Adjusted to a pink shade */
+    --background-color: #f4f4f9; /* Lighter background color */
+    --card-color: #ffffff;
+    --text-color: #333;
+    --muted-color: #777;
+    --border-radius: 10px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    padding: 20px;
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 {
+    font-size: 22px;
+}
+
+.logout-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 18px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #e04e92;
+}
+
+h3 {
+    margin: 20px 0 10px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--card-color);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #7f5af0;
+    outline: none;
+}
+
+form input[type="submit"] {
+    background-color: #7f5af0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #5a38e0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+ul li {
+    background-color: var(--card-color);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul li .test-actions {
+    display: flex;
+    gap: 10px; /* Ensures equal spacing between buttons */
+    align-items: center;
+}
+
+/* Button Styles for Add Questions, View Scores, Edit */
+ul li a, ul li button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+ul li a:hover, ul li button:hover {
+    background-color: #5a4e9c;
+}
+
+/* Specific Button Styles */
+.add-questions-btn {
+    background-color: #4169e1; /* Blue for Add Questions */
+}
+
+.add-questions-btn:hover {
+    background-color: #365fbf;
+}
+
+.view-scores-btn {
+    background-color: #32cd32; /* Green for View Scores */
+}
+
+.view-scores-btn:hover {
+    background-color: #28a745;
+}
+
+.edit-btn {
+    background-color: #ff8c00; /* Orange for Edit */
+}
+
+.edit-btn:hover {
+    background-color: #e67900;
+}
+
+/* Publish and Delete Button Styling */
+.publish-btn, .delete-btn {
+    background-color: #7f5af0; /* Same purple color for consistency */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.publish-btn:hover, .delete-btn:hover {
+    background-color: #5a38e0;
+}
+
+/* Remove the extra form boxes around delete and publish buttons */
+ul li .test-actions a, ul li .test-actions button {
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    ul li .test-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    ul li .test-actions a, ul li .test-actions button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.create-test-btn {
+    background-color: var(--primary-color);  /* Soft purple */
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: auto;
+}
+
+.create-test-btn:hover {
+    background-color: #5a38e0;  /* Darker purple on hover */
+    transform: translateY(-3px);  /* Subtle lift effect */
+}
+
+.create-test-btn:focus {
+    outline: none;
+}
+
+.create-test-btn:active {
+    transform: translateY(1px);  /* Subtle push down effect on click */
+}

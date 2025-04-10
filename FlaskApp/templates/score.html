@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #eef9ff, #d7f0fa);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .score-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c7be5;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 40px;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1a5fc1;
+        }
+    </style>
+</head>
+<body>
+    <div class="score-box">
+        <h1>🎉 Test Submitted!</h1>
+        <p class="score">Your Score: {{ score }} / {{ total }}</p>
+        <a href="{{ url_for('student_dashboard') }}" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

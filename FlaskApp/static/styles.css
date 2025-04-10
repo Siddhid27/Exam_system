@@ -1,0 +1,114 @@
+/*  Login Page Styling */
+
+body.login-body {
+    background: linear-gradient(135deg, #8EC5FC 0%, #E0C3FC 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+    border-color: #7f5af0;
+    outline: none;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #7f5af0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #5a38e0;
+}
+
+.register-link {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #444;
+}
+
+.register-link a {
+    color: #7f5af0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.flash-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.flash-message.error {
+    background-color: #ffcccc;
+    color: #990000;
+}
+
+.flash-message.success {
+    background-color: #ccffcc;
+    color: #006600;
+}
+.login-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    appearance: none;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}

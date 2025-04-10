@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Tests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h2>Available Tests</h2>
+        <a href="{{ url_for('student_dashboard') }}" class="back-btn">Back</a>
+    </header>
+
+    <h3>Tests for {{ subject_name }}</h3>
+    <ul>
+        {% for test in tests %}
+            <li>
+                <a href="{{ url_for('attempt_test', test_id=test.id) }}">{{ test.title }}</a>
+            </li>
+        {% else %}
+            <p>No tests available yet.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

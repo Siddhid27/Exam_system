@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Test - {{ test['title'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_test.css') }}">
+</head>
+<body>
+    <header>
+        <h2>Edit Test: {{ test['title'] }}</h2>
+        <a href="{{ url_for('teacher_dashboard') }}" class="back-btn">Back</a>
+    </header>
+
+    <!-- Form to edit test details -->
+    <form method="POST">
+        <label for="title">Test Title:</label>
+        <input type="text" name="title" value="{{ test['title'] }}" required>
+
+        <label for="duration">Duration (in minutes):</label>
+        <input type="number" name="duration" value="{{ test['duration'] }}" required>
+
+        <button type="submit">Update Test</button>
+    </form>
+
+    <hr>
+
+    <!-- Add New Question Form -->
+    <form method="POST" action="{{ url_for('add_questions', test_id=test['id']) }}">
+        <h3>Add Question</h3>
+
+        <label for="question">Question:</label>
+        <input type="text" name="question" required>
+
+        <label for="option1">Option 1:</label>
+        <input type="text" name="option1" required>
+
+        <label for="option2">Option 2:</label>
+        <input type="text" name="option2" required>
+
+        <label for="option3">Option 3:</label>
+        <input type="text" name="option3" required>
+
+        <label for="option4">Option 4:</label>
+        <input type="text" name="option4" required>
+
+        <label for="correct_option">Correct Answer:</label>
+        <select name="correct_option" required>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+        </select>
+
+        <button type="submit">Add Question</button>
+    </form>
+
+    <hr>
+
+    <!-- Existing Questions List -->
+    <h3>Existing Questions</h3>
+    <ul>
+        {% for question in questions %}
+            <li>
+                {{ question['question'] }}  
+                <small>(Correct Answer: Option {{ question['correct_option'] }})</small>
+
+                <!-- Delete Question Button -->
+                <form method="POST" action="{{ url_for('delete_question', question_id=question['id']) }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% else %}
+            <p>No questions added yet.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

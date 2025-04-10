@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ test.title }} - Attempt Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='attempt_test.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #exam-section { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>{{ test.title }} ({{ subject_name }})</h2>
+    <a href="{{ url_for('student_dashboard') }}" class="back-btn">Back</a>
+</header>
+
+<!-- Start Test Button -->
+<div id="start-section">
+    <button onclick="startExam()">Start Test</button>
+</div>
+
+<!-- Timer -->
+<h3 id="exam-timer" style="color: red; font-size: 20px;">Time Left: {{ duration }}m</h3>
+
+<!-- Test Form -->
+<div id="exam-section">
+    <form id="testForm" action="{{ url_for('submit_test', test_id=test.id) }}" method="POST">
+        {% for question in questions %}
+        <div class="question">
+            <p>{{ loop.index }}. {{ question.question }}</p>
+            <label><input type="radio" name="q{{ question.id }}" value="1"> {{ question.option1 }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="2"> {{ question.option2 }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="3"> {{ question.option3 }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="4"> {{ question.option4 }}</label><br>
+        </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    let switchCount = 0;
+    const maxSwitches = 3;
+    let examDuration = {{ duration }} * 60;  // Ensure 'duration' is passed into the template
+    let countdown = null;
+    let antiCheatActive = false;
+
+    function startExam() {
+        document.getElementById("start-section").style.display = "none";
+        document.getElementById("exam-section").style.display = "block";
+        startTimer();
+        enableFullScreen();
+        enableAntiCheat();
+    }
+
+    function startTimer() {
+        const timerDisplay = document.getElementById("exam-timer");
+        let timeLeft = examDuration;
+
+        countdown = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerDisplay.innerText = `Time Left: ${minutes}m ${seconds}s`;
+
+            if (timeLeft === 60) alert("Only 1 minute left! Hurry up.");
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                disableAntiCheat();
+                alert("Time is up! Submitting the test.");
+                document.getElementById("testForm").submit();  // Ensure the form is submitted correctly
+            }
+
+            timeLeft--;
+        }, 1000);
+    }
+
+    function enableAntiCheat() {
+        antiCheatActive = true;
+        document.addEventListener("visibilitychange", handleTabSwitch);
+        document.addEventListener("keydown", handleKeydown);
+        document.addEventListener("contextmenu", disableContextMenu);
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        window.addEventListener("beforeunload", handleBeforeUnload);
+    }
+
+    function disableAntiCheat() {
+        antiCheatActive = false;
+        document.removeEventListener("visibilitychange", handleTabSwitch);
+        document.removeEventListener("keydown", handleKeydown);
+        document.removeEventListener("contextmenu", disableContextMenu);
+        document.removeEventListener("fullscreenchange", handleFullscreenChange);
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+    }
+
+    function handleTabSwitch() {
+        if (!antiCheatActive) return;
+        if (document.hidden) {
+            switchCount++;
+            alert("You switched tabs/windows. " + (maxSwitches - switchCount) + " chances left.");
+            if (switchCount >= maxSwitches) {
+                alert("Test submitted due to multiple tab switches.");
+                disableAntiCheat();
+                document.getElementById("testForm").submit();
+            }
+        }
+    }
+
+    function handleKeydown(event) {
+        if (!antiCheatActive) return;
+        if (event.altKey || event.ctrlKey || event.key === "Escape") {
+            event.preventDefault();
+            alert("Shortcut keys are disabled during the exam!");
+        }
+    }
+
+    function disableContextMenu(event) {
+        if (!antiCheatActive) return;
+        event.preventDefault();
+        alert("Right-click is disabled during the exam!");
+    }
+
+    function handleBeforeUnload(event) {
+        if (!antiCheatActive) return;
+        event.preventDefault();
+        event.returnValue = "You are in an active exam! Leaving will submit your test.";
+    }
+
+    function enableFullScreen() {
+        let elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(err => {
+                alert(`Failed to enter fullscreen: ${err.message}`);
+            });
+        }
+    }
+
+    function handleFullscreenChange() {
+        if (!antiCheatActive) return;
+        if (!document.fullscreenElement) {
+            alert("You must stay in fullscreen mode during the exam!");
+            enableFullScreen();
+        }
+    }
+
+    document.getElementById("testForm").addEventListener("submit", () => {
+        clearInterval(countdown);
+        disableAntiCheat();
+    });
+</script>
+
+</body>
+</html>

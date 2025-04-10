@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}">
+    <script>
+        function toggleTests(subjectId) {
+            var testsDiv = document.getElementById("tests-" + subjectId.toString());
+            if (testsDiv) {
+                testsDiv.style.display = testsDiv.style.display === "none" ? "block" : "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h2>Welcome, {{ session.get('name', 'Student') }}</h2>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <h3>Available Subjects</h3>
+    <div class="subjects-container">
+        {% for subject in subjects %}
+        <div class="subject-card" onclick="toggleTests('{{ subject.id }}')">
+            <h4>{{ subject.name }}</h4>
+        </div>
+        <div class="tests-list" id="tests-{{ subject.id }}" style="display: none;">
+            {% if subject.tests | default([]) %}
+                <ul>
+                    {% for test in subject.tests %}
+                        <li>
+                            <a href="{{ url_for('attempt_test', test_id=test.id) }}">{{ test.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tests available.</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

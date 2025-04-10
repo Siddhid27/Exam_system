@@ -1,0 +1,179 @@
+:root {
+    --primary-color: #4A90E2;
+    --accent-color: #2D77D0;
+    --background-color: #f7faff;
+    --card-color: #ffffff;
+    --text-color: #333;
+    --muted-color: #777;
+    --border-radius: 10px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    padding: 20px;
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 {
+    font-size: 22px;
+}
+
+.back-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 18px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #1f5eb1;
+}
+
+form {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-top: 20px;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+form input:focus,
+form select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+form button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    width: auto;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form button:hover {
+    background-color: #5a38e0;
+    transform: translateY(-3px);
+}
+
+form button:focus {
+    outline: none;
+}
+
+form button:active {
+    transform: translateY(1px);
+}
+
+hr {
+    margin: 20px 0;
+    border: 1px solid #eee;
+}
+
+h3 {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+ul li {
+    background-color: var(--card-color);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul li form {
+    margin-left: 15px;
+    display: inline;
+}
+
+ul li form button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+ul li form button:hover {
+    background-color: #c0392b;
+}
+
+ul li small {
+    font-size: 12px;
+    color: #888;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    form input,
+    form select {
+        font-size: 14px;
+    }
+
+    form button {
+        font-size: 14px;
+    }
+}

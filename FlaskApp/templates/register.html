@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body class="register-body">
+    <div class="register-container">
+        <img src="{{ url_for('static', filename='exam.png') }}" alt="Logo" class="logo">
+
+        <h2 class="register-title">Create Account</h2>
+        <p class="register-subtitle">Join us by filling the form below</p>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="register-form">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <label for="role">Register as:</label>
+            <select name="role" required>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+
+            <div id="teacher-subject" style="display: none;">
+                <label for="subject_id">Select Subject:</label>
+                <select name="subject_id">
+                    {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const roleSelect = document.querySelector('select[name="role"]');
+            const teacherSubjectDiv = document.getElementById('teacher-subject');
+    
+            function toggleSubjectDropdown() {
+                if (roleSelect.value === 'teacher') {
+                    teacherSubjectDiv.style.display = 'block';
+                } else {
+                    teacherSubjectDiv.style.display = 'none';
+                }
+            }
+    
+            roleSelect.addEventListener('change', toggleSubjectDropdown);
+            toggleSubjectDropdown(); // Trigger on load
+        });
+    </script>
+    
+</body>
+</html>

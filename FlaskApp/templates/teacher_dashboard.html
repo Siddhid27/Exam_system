@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher_dashboard.css') }}">
+</head>
+<body>
+    <header>
+        <h2>Welcome, {{ teacher_name }}</h2>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <h3>Create a New Test</h3>
+    <form method="POST" action="{{ url_for('create_test') }}">
+        <input type="hidden" name="subject_id" value="{{ subjects[0].id }}">
+        <p><strong>Subject:</strong> {{ subjects[0].name }}</p>
+        <label for="title">Test Title:</label>
+        <input type="text" name="title" required>
+    
+        <label for="duration">Duration (in minutes):</label>
+        <input type="number" name="duration" min="1" required>
+    
+        <button type="submit" class="create-test-btn">Create Test</button>
+    </form>
+
+    <h3>Manage Tests</h3>
+    <ul>
+        {% for test in tests %}
+            <li>
+                <strong>{{ test.title }}</strong> ({{ test.subject_name }})
+                <div class="test-actions">
+                    <a href="{{ url_for('add_questions', test_id=test.id) }}" class="add-questions-btn">Add Questions</a>
+                    <a href="{{ url_for('view_scores', test_id=test.id) }}" class="view-scores-btn">View Scores</a>
+                    <a href="{{ url_for('edit_test', test_id=test.id) }}" class="edit-btn">Edit</a>
+                    <form method="POST" action="{{ url_for('publish_test', test_id=test.id) }}" style="display: inline;">
+                        <button type="submit" class="publish-btn">{{ "Unpublish" if test.is_published else "Publish" }}</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('delete_test', test_id=test.id) }}" style="display: inline;">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% else %}
+            <p>No tests created yet.</p>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>

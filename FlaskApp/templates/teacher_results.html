@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher_results.css') }}">
+</head>
+<body>
+    <header>
+        <h2>Results for {{ test.title }}</h2>
+        <a href="{{ url_for('teacher_dashboard') }}" class="back-btn">Back</a>
+    </header>
+
+    <h3>Student Scores</h3>
+    <table border="1">
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Score</th>
+            <th>Attempted On</th>
+        </tr>
+        {% for score in scores %}
+            <tr>
+                <td>{{ score.student_id }}</td>
+                <td>{{ score.student_name }}</td>
+                <td>{{ score.score }}</td>
+                <td>{{ score.taken_at }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No scores available yet.</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
